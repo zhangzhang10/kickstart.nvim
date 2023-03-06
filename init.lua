@@ -193,7 +193,7 @@ require('lazy').setup({
   },
 
   -- Highlight symbols under cursor
-  { 'RRethy/vim-illuminate', opts = {} },
+  'RRethy/vim-illuminate',
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
