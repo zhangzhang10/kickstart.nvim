@@ -66,6 +66,9 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
+  -- Better netrw
+  'tpope/vim-vinegar',
+
   -- Git related plugins
   'tpope/vim-fugitive',
   -- 'tpope/vim-rhubarb',
@@ -526,6 +529,14 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+  },
+}
+
+require('illuminate').configure {
+  filetype_denylist = {
+    'fugitive',
+    'help',
+    'netrw',
   },
 }
 
