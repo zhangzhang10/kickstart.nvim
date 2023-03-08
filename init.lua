@@ -152,7 +152,10 @@ require('lazy').setup({
         section_separators = {left = '', right = ''},
         extensions = {'quickfix', 'fzf'},
       },
-      lualine_b = { {'FugitiveHead', icon = ''}, },
+      sections = {
+        lualine_b = { {'FugitiveHead', icon = ''}, },
+        lualine_x = {'encoding', 'filetype'},
+      },
     },
   },
 
