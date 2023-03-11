@@ -198,8 +198,25 @@ require('lazy').setup({
     end,
   },
 
-  -- Highlight symbols under cursor
-  'RRethy/vim-illuminate',
+  { -- Highlight symbols under cursor
+    'RRethy/vim-illuminate',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    lazy = true,
+    enabled = true,
+    event = { 'CursorMoved', 'InsertLeave' },
+    config = function()
+      require('illuminate').configure({
+        filetypes_denylist = {
+          'fugitive',
+          'help',
+          'netrw',
+          'Telescope',
+        },
+      })
+    end,
+  },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -536,19 +553,22 @@ cmp.setup {
   },
 }
 
-require('illuminate').configure {
-  filetype_denylist = {
-    'fugitive',
-    'help',
-    'netrw',
-  },
-}
-
 vim.api.nvim_command([[
   autocmd BufReadPost quickfix set nocul
+]])
+vim.api.nvim_command([[
   autocmd BufEnter * silent! lcd %:p:h
+]])
+vim.api.nvim_command([[
   autocmd BufNewFile,BufRead *.md  set filetype=markdown
 ]])
+vim.api.nvim_command([[
+  autocmd InsertLeave,WinEnter * set cursorline
+]])
+vim.api.nvim_command([[
+  autocmd InsertEnter,WinLeave * set nocursorline
+]])
+
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
