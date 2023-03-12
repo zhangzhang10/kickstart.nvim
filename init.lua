@@ -213,6 +213,8 @@ require('lazy').setup({
           'help',
           'netrw',
           'Telescope',
+          'TelescopePrompt',
+          'aerial',
         },
       })
     end,
