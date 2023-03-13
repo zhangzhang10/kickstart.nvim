@@ -579,9 +579,9 @@ cmp.setup {
 vim.api.nvim_command([[
   autocmd BufReadPost quickfix set nocul
 ]])
-vim.api.nvim_command([[
-  autocmd BufEnter * silent! lcd %:p:h
-]])
+-- vim.api.nvim_command([[
+--   autocmd BufEnter * silent! lcd %:p:h
+-- ]])
 vim.api.nvim_command([[
   autocmd BufNewFile,BufRead *.md  set filetype=markdown
 ]])
