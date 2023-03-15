@@ -153,8 +153,8 @@ require('lazy').setup({
         extensions = {'quickfix', 'fzf'},
       },
       sections = {
-        lualine_b = { {'FugitiveHead', icon = ''}, },
-        lualine_x = {'encoding', 'filetype'},
+        -- lualine_b = { {'FugitiveHead', icon = ''} },
+        lualine_x = {'encoding', 'filetype'}
       },
     },
   },
