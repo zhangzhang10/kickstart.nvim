@@ -66,6 +66,9 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
+  -- pairs of handy bracket mappings
+  'tpope/vim-unimpaired',
+
   -- Better netrw
   'tpope/vim-vinegar',
 
