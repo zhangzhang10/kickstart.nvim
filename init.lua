@@ -338,6 +338,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+-- [[ Terraform format ]]
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function()
+    vim.lsp.buf.format()
+  end,
+  pattern = {"*.tf", "*.tfvars"},
+})
+
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
@@ -507,6 +515,8 @@ local servers = {
     },
   },
   bashls = {},
+  terraformls = {},
+  tflint = {},
 }
 
 -- Setup neovim lua configuration
