@@ -67,7 +67,7 @@ require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
   -- pairs of handy bracket mappings
-  'tpope/vim-unimpaired',
+  -- 'tpope/vim-unimpaired',
 
   -- Better netrw
   'tpope/vim-vinegar',
@@ -105,7 +105,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -514,7 +514,7 @@ local servers = {
   -- gopls = {},
   pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
+  tsserver = {},
 
   lua_ls = {
     Lua = {
