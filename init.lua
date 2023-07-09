@@ -88,12 +88,6 @@ require('lazy').setup({
   -- easymotion
   'easymotion/vim-easymotion',
 
-  -- properly fold Python code
-  'tmhedberg/SimpylFold',
-
-  -- fast folding
-  -- 'Konfekt/FastFold',
-
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   { -- LSP Configuration & Plugins
