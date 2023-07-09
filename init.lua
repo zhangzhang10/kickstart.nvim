@@ -517,8 +517,6 @@ local servers = {
     },
   },
   bashls = {},
-  terraformls = {},
-  tflint = {},
 }
 
 -- Setup neovim lua configuration
