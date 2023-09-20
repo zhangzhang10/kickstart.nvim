@@ -114,7 +114,7 @@ require('lazy').setup({
 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
-    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-buffer', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip', 'hrsh7th/cmp-path' },
+    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-buffer','hrsh7th/cmp-path', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   },
 
   -- Useful plugin to show you pending keybinds.
@@ -562,7 +562,9 @@ cmp.setup {
     end,
   },
   mapping = cmp.mapping.preset.insert {
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
     ["<CR>"] = cmp.mapping({
@@ -604,8 +606,19 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'buffer' },
     { name = 'path' },
-  },
+  }
 }
+
+cmp.setup.filetype('gitcommit', {
+  sources = cmp.config.sources({
+    { name = 'buffer' },
+  })
+})
+
+-- disable cmp on cmdline
+cmp.setup.cmdline(':', {
+  enabled = false,
+})
 
 vim.api.nvim_command([[
   autocmd BufReadPost quickfix set nocul
