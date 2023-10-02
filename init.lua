@@ -179,9 +179,10 @@ require('lazy').setup({
     -- See `:help indent_blankline.txt`
     main = 'ibl',
     opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
+      indent = {
+        char = '┊',
+      },
+    }
   },
 
   -- "gc" to comment visual regions/lines
@@ -395,14 +396,19 @@ require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'bash', 'c', 'cpp', 'lua', 'python', 'typescript', 'vimdoc', 'vim', 'comment' },
 
+  sync_install = false,
+
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
 
   highlight = {
     enable = true,
-    additional_vim_regex_highlighting = false,
+    disable = { 'lua' },
   },
-  -- indent = { enable = true, disable = { 'python' } },
+  indent = {
+    enable = true,
+    disable = { 'python' }
+  },
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -646,6 +652,9 @@ vim.api.nvim_command([[
   autocmd InsertEnter,WinLeave * set nocursorline
 ]])
 
+vim.api.nvim_command([[
+  highlight link @error Normal
+]])
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
