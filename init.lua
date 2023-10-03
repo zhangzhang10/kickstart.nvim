@@ -137,14 +137,9 @@ require('lazy').setup({
   --   },
   -- },
 
-  { -- Theme inspired by Atom
-    -- 'navarasu/onedark.nvim',
-    'gruvbox-community/gruvbox',
+  { "ellisonleao/gruvbox.nvim",
     priority = 1000,
-    config = function()
-      vim.g.gruvbox_italic = 1
-      vim.cmd.colorscheme 'gruvbox'
-    end,
+    opts = {},
   },
 
   { -- Set lualine as statusline
@@ -284,6 +279,7 @@ vim.o.et = true
 vim.o.cul = true
 vim.o.splitright = true
 vim.o.background = 'dark'
+vim.cmd([[colorscheme gruvbox]])
 
 -- Set highlight on search
 vim.o.hlsearch = true
@@ -650,10 +646,6 @@ vim.api.nvim_command([[
 ]])
 vim.api.nvim_command([[
   autocmd InsertEnter,WinLeave * set nocursorline
-]])
-
-vim.api.nvim_command([[
-  highlight link @error Normal
 ]])
 
 -- The line beneath this is called `modeline`. See `:help modeline`
