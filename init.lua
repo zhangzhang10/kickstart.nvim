@@ -94,6 +94,9 @@ require('lazy').setup({
   -- fast folding
   -- 'Konfekt/FastFold',
 
+  -- GitHub Co-Pilot
+  'github/copilot.vim',
+
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   { -- LSP Configuration & Plugins
@@ -333,6 +336,13 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- Keymap to toggle aerial
 vim.keymap.set('n', '<leader>o', '<cmd>AerialToggle!<CR>')
+
+-- Keymap for Copilot
+vim.keymap.set('i', '<leader><tab>', 'copilot#Accept("\\<CR>")', {
+  expr = true,
+  replace_keycodes = false
+})
+vim.g.copilot_no_tab_map = true
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
