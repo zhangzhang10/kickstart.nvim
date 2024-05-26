@@ -338,7 +338,7 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set('n', '<leader>o', '<cmd>AerialToggle!<CR>')
 
 -- Keymap for Copilot
-vim.keymap.set('i', '<leader><tab>', 'copilot#Accept("\\<CR>")', {
+vim.keymap.set('i', '<C-Tab>', 'copilot#Accept("\\<CR>")', {
   expr = true,
   replace_keycodes = false
 })
