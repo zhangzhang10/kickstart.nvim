@@ -532,7 +532,13 @@ end
 local servers = {
   clangd = {},
   -- gopls = {},
-  pyright = {},
+  pyright = {
+    python = {
+      analysis = {
+        diagnosticSeverityOverrides = { reportArgumentType = false }
+      }
+    }
+  },
   -- rust_analyzer = {},
   tsserver = {},
   lua_ls = {
