@@ -335,7 +335,7 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Keymap to toggle aerial
-vim.keymap.set('n', '<leader>o', '<cmd>AerialToggle!<CR>')
+vim.keymap.set('n', '<leader>o', '<cmd>AerialToggle<CR>')
 
 -- Keymap for Copilot
 vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
@@ -535,7 +535,12 @@ local servers = {
   pyright = {
     python = {
       analysis = {
-        diagnosticSeverityOverrides = { reportArgumentType = false }
+        diagnosticSeverityOverrides = {
+          reportArgumentType = false,
+          reportOptionalMemberAccess = false,
+          reportOptionalSubscript = false,
+          reportIndexIssue = false,
+        }
       }
     }
   },
