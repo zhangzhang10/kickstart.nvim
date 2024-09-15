@@ -520,11 +520,6 @@ local on_attach = function(_, bufnr)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 
-  require("clangd_extensions").setup({
-      inlay_hints = {
-          inline = 0,
-      }
-  })
   require("clangd_extensions.inlay_hints").setup_autocmd()
   require("clangd_extensions.inlay_hints").set_inlay_hints()
 end
