@@ -124,7 +124,12 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim', opts = {
+    -- defer = function(ctx)
+    --   return ctx.mode == "v" or ctx.mode == "V" or ctx.mode == "<C-V>"
+    -- end,
+    }
+  },
 
   -- { -- Adds git releated signs to the gutter, as well as utilities for managing changes
   --   'lewis6991/gitsigns.nvim',
@@ -545,7 +550,6 @@ local servers = {
     }
   },
   -- rust_analyzer = {},
-  tsserver = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
