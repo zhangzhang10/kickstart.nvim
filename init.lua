@@ -46,6 +46,7 @@ P.S. You can delete this when you're done too. It's your config now :)
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
     'git',
@@ -94,8 +95,63 @@ require('lazy').setup({
   -- fast folding
   -- 'Konfekt/FastFold',
 
-  -- GitHub Co-Pilot
+  -- GitHub CoPilot
   'github/copilot.vim',
+
+  -- GitHub CoPilot Chat
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    branch = "canary",
+    dependencies = {
+      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+      { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+    },
+    build = "make tiktoken", -- Only on MacOS or Linux
+    opts = {
+      debug = false, -- Enable debugging
+      -- See Configuration section for rest
+    },
+    event = "VeryLazy", -- Load on demand
+    keys = {
+      {
+        "<leader>cch",
+        function()
+          local actions = require("CopilotChat.actions")
+          require("CopilotChat.integrations.telescope").pick(actions.help_actions())
+        end,
+        desc = "CopilotChat: Help actions",
+      },
+      {
+        "<leader>ccp",
+        function()
+          local actions = require("CopilotChat.actions")
+          require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+        end,
+        desc = "CopilotChat: Prompt actions",
+      },
+      {
+        "<leader>ccq",
+        function()
+          local input = vim.fn.input("Quick Chat: ")
+          if input ~= "" then
+            require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
+          end
+        end,
+        desc = "CopilotChat: Quick chat",
+      },
+      { "<leader>ccb", ":CopilotChatBuffer ", desc = "CopilotChat: Chat with current buffer" },
+      { "<leader>cce", "<cmd>CopilotChatExplain<cr>", desc = "CopilotChat: Explain code" },
+      { "<leader>cct", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat: Generate tests" },
+      { "<leader>ccr", "<cmd>CopilotChatReview<cr>", desc = "CopilotChat: Review code" },
+      { "<leader>ccR", "<cmd>CopilotChatRefactor<cr>", desc = "CopilotChat: Refactor code" },
+      { "<leader>ccn", "<cmd>CopilotChatBetterNamings<cr>", desc = "CopilotChat: Better Naming" },
+      { "<leader>cc?", "<cmd>CopilotChatModels<cr>", desc = "CopilotChat: Select ChatGPT Models" },
+      { "<leader>ccT", "<cmd>CopilotChatVsplitToggle<cr>", desc = "CopilotChat: Toggle Vsplit" },
+      { "<leader>ccv", ":CopilotChatVisual ", mode = "x", desc = "CopilotChat: Open in vertical split" },
+      { "<leader>ccf", "<cmd>CopilotChatFixDiagnostic<cr>", desc = "CopilotChat: Fix diagnostic" },
+      { "<leader>ccl", "<cmd>CopilotChatReset<cr>", desc = "CopilotChat: Reset chat history and clear buffer" }
+    },
+  },
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -125,9 +181,10 @@ require('lazy').setup({
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {
-    -- defer = function(ctx)
-    --   return ctx.mode == "v" or ctx.mode == "V" or ctx.mode == "<C-V>"
-    -- end,
+      -- defer = function(ctx)
+      --   return ctx.mode == "v" or ctx.mode == "V" or ctx.mode == "<C-V>"
+      -- end,
+      icons = { mappings = false },
     }
   },
 
@@ -525,8 +582,8 @@ local on_attach = function(_, bufnr)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 
-  require("clangd_extensions.inlay_hints").setup_autocmd()
-  require("clangd_extensions.inlay_hints").set_inlay_hints()
+  -- require("clangd_extensions.inlay_hints").setup_autocmd()
+  -- require("clangd_extensions.inlay_hints").set_inlay_hints()
 end
 
 -- Enable the following language servers
