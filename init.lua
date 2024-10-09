@@ -96,14 +96,39 @@ require('lazy').setup({
   -- 'Konfekt/FastFold',
 
   -- GitHub CoPilot
-  'github/copilot.vim',
+  -- 'github/copilot.vim',
+
+  -- copilot.lua
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        suggestion = {
+          enabled = true,
+          auto_trigger = false,
+          hide_during_completion = true,
+          debounce = 75,
+          keymap = {
+            accept = "<C-J>",
+            accept_word = false,
+            accept_line = false,
+            next = "<M-]>",
+            prev = "<M-[>",
+            dismiss = "<C-N>",
+          },
+        },
+      })
+    end,
+  },
 
   -- GitHub CoPilot Chat
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "canary",
     dependencies = {
-      { "github/copilot.vim" },-- or { "zbirenbaum/copilot.lua" }
+      { "zbirenbaum/copilot.lua" }, -- or { "github/copilot.vim" },
       { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
     },
     build = "make tiktoken", -- Only on MacOS or Linux
@@ -172,7 +197,7 @@ require('lazy').setup({
   },
 
   -- Extended clangd features outside of LSP specs.
-  'p00f/clangd_extensions.nvim',
+  -- 'p00f/clangd_extensions.nvim',
 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -399,12 +424,12 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- Keymap to toggle aerial
 vim.keymap.set('n', '<leader>o', '<cmd>AerialToggle<CR>')
 
--- Keymap for Copilot
-vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
-  expr = true,
-  replace_keycodes = false
-})
-vim.g.copilot_no_tab_map = true
+-- Keymap for copilot.nvim
+-- vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
+--   expr = true,
+--   replace_keycodes = false
+-- })
+-- vim.g.copilot_no_tab_map = true
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -714,6 +739,15 @@ cmp.setup.filetype('gitcommit', {
 cmp.setup.cmdline(':', {
   enabled = false,
 })
+
+-- hide copilot suggestions when cmp menu is open
+cmp.event:on("menu_opened", function()
+  vim.b.copilot_suggestion_hidden = true
+end)
+
+cmp.event:on("menu_closed", function()
+  vim.b.copilot_suggestion_hidden = false
+end)
 
 vim.api.nvim_command([[
   autocmd BufReadPost quickfix set nocul
